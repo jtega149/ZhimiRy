@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  image        String?
+  password     String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  xp           Int       @default(0)
+  level        Int       @default(1)
+  streakCount  Int       @default(0)
+  lastScanDate DateTime?
+  totalCO2     Float     @default(0.0)
+  credits      Int       @default(0)
+
+  scans Scan[]
+
+  @@index([xp])
+  @@index([email])
+}
+
+model Scan {
+  id              String   @id @default(cuid())
+  userId          String
+  createdAt       DateTime @default(now())
+
+  imageUrl        String
+
+  materialName    String
+  description     String
+  disposalMethod  String
+  disposalNotes   String?
+  confidence      Float
+
+  co2Saved        Float    @default(0.0)
+  xpEarned        Int      @default(0)
+  creditsEarned   Int      @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
