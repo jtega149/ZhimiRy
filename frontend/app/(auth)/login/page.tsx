@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
+import { ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,9 +35,17 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Sign in</CardTitle>
-          <CardDescription>Use the account you created during registration.</CardDescription>
+        <CardHeader className="space-y-4">
+          <Button variant="ghost" size="sm" className="-ml-2 w-fit gap-1 px-2 text-muted-foreground" asChild>
+            <Link href="/">
+              <ArrowLeft className="h-4 w-4" />
+              Back to home
+            </Link>
+          </Button>
+          <div className="space-y-1.5">
+            <CardTitle>Sign in</CardTitle>
+            <CardDescription>Use the account you created during registration.</CardDescription>
+          </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="space-y-4">

@@ -3,23 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Leaf, History, Trophy, MapPin, User } from "lucide-react";
-
-const links = [
-  { href: "/scan", label: "Scan", icon: Leaf },
-  { href: "/history", label: "History", icon: History },
-  { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
-  { href: "/map", label: "Map", icon: MapPin },
-  { href: "/profile", label: "Profile", icon: User },
-];
+import { dashboardNavItems } from "./dashboard-nav-items";
 
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
     <aside className="hidden w-52 shrink-0 border-r bg-muted/30 md:block">
-      <nav className="flex flex-col gap-1 p-3">
-        {links.map(({ href, label, icon: Icon }) => (
+      <nav className="flex flex-col gap-1 p-3" aria-label="Dashboard">
+        {dashboardNavItems.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
             href={href}
